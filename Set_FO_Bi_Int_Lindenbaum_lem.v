@@ -260,57 +260,6 @@ end.
 
 (* Now we turn to prime theories. *)
 
-
-
-(* COMMENTS:
-
-    Primeness may not suffice: I need to make sure that I have existential in Δ if I have in it the formula with
-    terms, and have universals in Γ if I have in it the formula with all terms.
-
-    What Dominik does for ∀: can create a enumeration E of formulae s.t. for Phi s.t. E(n)=Phi we
-    have that for all m >= n, m is free in Phi. So, he extends Γ with Phi[n] --> ∀ Phi (Henkin formula).
-
-    What we could do for ∃: use the same enumeration E and extend Δ with ∃ Phi --< Phi[n] (dual Henkin formula).
-
-    So, if I saturate Γ and Δ with Henkin and dual Henkin formulae, then primeness might do the job.
-    More precisely, making Γ prime and then extending Δ to the complement of the prime theory may
-    work out (no need to enhance Δ in the process).
-
-    WARNING:
-    There is a problem with Henkin and dual-Henkin formulae: they are not derivable (resp. falsifiable) in FOBIC.
-    At least, this is the case for Henkin formulae which constitute a formalisation of the drinker paradox.
-    So, by adding them to the theory, we may very well break the initial underivability. I need to think
-    about another way to get make sure that existentials are positively instantiated and universals are
-    negatively instantiated.
-
-    I believe that in the Lindenbaum extension I need to build step-by-step PAIRS, and not theories.
-    While I could simply build a prime theory on the left in the propositional case and then brutally
-    obtain the pair using the set-theoretic complement, it seems that this does not work for the FO case.
-    While I can keep track of existentials on the left with the usual trick (see if it's an existential formula,
-    then instantiate it), I cannot have a fine enough management of universals on the right. So, I need to
-    check universals on the right while building the pair.
-
-    I need the resulting pair to be:
-
-    (1) complete => set complement at the end may do the job
-
-    (2) witnessing existentials => usual trick of FO Intuitionistic
-
-    (3) dual-witnessing universals => ???
-
-      This is required to ensure the semantic-to-syntactic direction of the universal case of the
-      proof of the truth lemma. The other way around holds trivially (universal formula entails all
-      instantiations). As mentioned above, I cannot use Henkin formulae to take care of this direction
-      (they use the witness of the drinker paradox), as they are not theorems and their addition may
-      break the initial underivability of the pair.
-
-      Probably I can built the RHS in a dual way to the LHS: witness existentials and conjunctions
-      (which derive the RHS).
-
-    (4) prime => usual trick of prop Intuitionistic
-
-    *)
-
 Fixpoint nextension_theory (Γ Δ : @Ensemble (form)) (n : nat) :  prod (Ensemble form) (Ensemble form) :=
 match n with
 | 0 => (Γ, Δ)
