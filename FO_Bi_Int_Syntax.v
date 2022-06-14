@@ -436,45 +436,6 @@ Section Subst.
     - apply subst_term_shift.
   Qed.
 
-(* (* ------------------------------------------------------------------------------------------------------------------ *)
-
-(* Playing around to get finiteness *)
-
-  Lemma up_arrow_map_term : forall n (t t0 : vec term n), (map (subst_term (up ↑)) t = map (subst_term (up ↑)) t0) -> t = t0.
-  Proof.
-  (* Should come from the fact that (subst_term ↑) is injective. *)
-  Admitted.
-
-  Lemma arrow_map_term : forall n (t t0 : vec term n), (map (subst_term ↑) t = map (subst_term ↑) t0) -> t = t0.
-  Proof.
-  (* Should come from the fact that (subst_term ↑) is injective. *)
-  Admitted.
-
-  Lemma atom_inversion : forall P0 v0 v1,
-    atom P0 v0 = atom P0 v1 -> v0 = v1.
-  Proof.
-  intros. inversion H. inversion H1.
-  Admitted.
-
-  Lemma arrow_inj_term : forall t0 t1,
-    t0`[↑] = t1`[↑] -> t0 = t1.
-  Proof.
-  Admitted.
-
-  Lemma arrow_inj : forall A B,
-    A[↑] = B[↑] -> A = B.
-  Proof.
-  apply (form_ind_subst (fun A => forall B : form, A[↑] = B[↑] -> A = B)).
-  - destruct B ; intros ; inversion H ; auto.
-  - destruct B ; intros ; inversion H ; auto.
-  - destruct B ; intros ; inversion H ; subst ; auto. assert ((map (subst_term ↑) t) = (map (subst_term ↑) t0)).
-    apply atom_inversion ; auto. assert (t = t0). apply arrow_map_term ; auto. subst. auto.
-  - intros ; destruct B ; intros ; inversion H1 ; auto. subst. apply H in H4. subst.
-    apply H0 in H5. subst. auto.
-  - intros ; destruct B ; intros ; inversion H0 ; auto. subst.
-    unfold funcomp in H3. (* This part does not hold. The fixing of the variable with up is problematic. *)
-  Admitted. *)
-
 End Subst.
 
 Section EqDec.
@@ -490,12 +451,6 @@ Lemma eq_dec_nat : forall x y : nat, {x = y}+{x <> y}.
 Proof.
 induction x ; destruct y ; auto. destruct (IHx y) ; auto.
 Qed.
-
-(* Lemma eq_dec_vec_term : forall n (x y : vec term n), {x = y}+{x <> y}.
-Proof.
-intros n x. Search vec Type.
--
-Admitted. *)
 
 Lemma eq_dec_preserved_vector : forall (X : Type) n (v0 : vec X n),
   (forall t : X, InTv t n v0 -> forall y : X, {t = y} + {t <> y}) ->
