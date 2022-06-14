@@ -130,7 +130,7 @@ Inductive DNsRule : rls ((@Ensemble (form)) * (form)) :=
 
 
 
-(* At last we can define our calculus GLS and its proof-search version PSGLS. *)
+(* At last we can define our calculi wFOBIC and sFOBIC. *)
 
 Inductive wFOBIC_rules (s : ((@Ensemble (form)) * (form))) : Prop :=
   | Id : IdRule nil s -> wFOBIC_rules s
